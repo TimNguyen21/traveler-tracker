@@ -3,6 +3,7 @@ import {expect} from 'chai';
 import Agency from '../src/Agency';
 import trips from '../src/data/trips.js'
 import destinations from '../src/data/destinations.js'
+import travelers from '../src/data/traveler.js'
 
 describe("Agency", function() {
   // let travelerData, traveler;
@@ -23,7 +24,7 @@ describe("Agency", function() {
   });
 
   it("should be an instance of a Agency", function() {
-    let agency = new Agency()
+    let agency = new Agency('agency', travelers, trips, destinations);
 
     expect(agency).to.be.an.instanceof(Agency);
   });
