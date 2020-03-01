@@ -11,6 +11,7 @@ class Traveler {
 
     return userTripsData.map(trip => {
       let destinationInfo = destinationData.find(destinationData => trip.destinationID === destinationData.id);
+      let totalCost = this.calculateTotalTripCost(destinationInfo.estimatedFlightCostPerPerson, trip.travelers, trip.duration, destinationInfo.estimatedLodgingCostPerDay);
 
       return {
         id: trip.id,
@@ -20,9 +21,9 @@ class Traveler {
         status: trip.status,
         suggestedActivities: trip.suggestedActivities,
         destination: destinationInfo.destination,
-        totalTripCost: this.calculateTotalTripCost(destinationInfo.estimatedFlightCostPerPerson, trip.travelers, trip.duration, destinationInfo.estimatedLodgingCostPerDay).toFixed(2),
-        agencyFees: (this.calculateTotalTripCost(destinationInfo.estimatedFlightCostPerPerson, trip.travelers, trip.duration, destinationInfo.estimatedLodgingCostPerDay)*.10).toFixed(2),
-        overallCost: (this.calculateTotalTripCost(destinationInfo.estimatedFlightCostPerPerson, trip.travelers, trip.duration, destinationInfo.estimatedLodgingCostPerDay)*1.1).toFixed(2),
+        totalTripCost: totalCost.toFixed(2),
+        agencyFees: (totalCost*.10).toFixed(2),
+        overallCost: (totalCost*1.1).toFixed(2),
         destinationImage: destinationInfo.image,
         destinationAlt: destinationInfo.alt
       }
