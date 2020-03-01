@@ -1,16 +1,17 @@
 class Traveler {
-  constructor(travelerData, tripsData) {
+  constructor(travelerData, tripsData, destinationData) {
     this.id = travelerData.id;
     this.name = travelerData.name;
     this.travelerType = travelerData.travelerType;
     this.tripsData = tripsData;
+    this.destinationData = destinationData;
   }
 
-  filterTravelerTrips(destinationData) {
+  filterTravelerTrips() {
     let userTripsData = this.tripsData.filter(trip => trip.userID === this.id);
 
     return userTripsData.map(trip => {
-      let destinationInfo = destinationData.find(destinationData => trip.destinationID === destinationData.id);
+      let destinationInfo = this.destinationData.find(destinationData => trip.destinationID === destinationData.id);
       let totalCost = this.calculateTotalTripCost(destinationInfo.estimatedFlightCostPerPerson, trip.travelers, trip.duration, destinationInfo.estimatedLodgingCostPerDay);
 
       return {
@@ -32,6 +33,16 @@ class Traveler {
 
   calculateTotalTripCost(costPerPerson, totalTravelers, duration, lodgingCostPerDay) {
     return (costPerPerson * totalTravelers) + (duration * lodgingCostPerDay)
+  }
+
+  calculateTotalSpentOverall() {
+    let travelerTrip = this.filterTravelerTrips();
+
+    let totalSpentOverall = parseInt(travelerTrip.reduce((overallCost, trip) => {
+      return overallCost += trip.overallCost
+    }, ''))
+    
+    return totalSpentOverall.toFixed(2);
   }
 
 }
