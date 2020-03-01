@@ -8,6 +8,8 @@ import $ from 'jquery';
 import './css/base.scss';
 import travelers from './data/traveler.js';
 import trips from '../src/data/trips.js';
+import destinations from '../src/data/destinations.js'
+
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import Login from './Login'
@@ -30,15 +32,18 @@ $('.login-button').click(function() {
 function populateTravelerInfo(userID, travelersData) {
   let travelerInfo = travelersData.find(traveler => traveler.id === userID);
   let traveler = new Traveler(travelerInfo, trips);
-  let filterTrips = traveler.filterTravelerTrips();
+  let filterTrips = traveler.filterTravelerTrips(destinations);
 
   return filterTrips.reduce((acc, trip) => {
 
     return acc +=
-    `<div>${trip.date}</div>
-    <div>${trip.duration}</div>
-    <div>${trip.status}</div>
-    <div>${trip.travelers}</div>`
+    `<div>Trip date: ${trip.date}</div>
+    <div>Trip Duration: ${trip.duration}</div>
+    <div>Trip Location: ${trip.destination}</div>
+    <div>Trip Status: ${trip.status}</div>
+    <div>Total Trip Cost: ${trip.totalTripCost}</div>
+    <div>Agency Fee: ${trip.agencyFees}</div>
+    <div>Overall Cost: ${trip.overallCost}</div>`
   },'')
 }
 
