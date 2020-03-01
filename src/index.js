@@ -31,19 +31,19 @@ $('.login-button').click(function() {
 
 function populateTravelerInfo(userID, travelersData) {
   let travelerInfo = travelersData.find(traveler => traveler.id === userID);
-  let traveler = new Traveler(travelerInfo, trips);
-  let filterTrips = traveler.filterTravelerTrips(destinations);
+  let traveler = new Traveler(travelerInfo, trips, destinations);
+  let filterTrips = traveler.filterTravelerTrips();
 
-  return filterTrips.reduce((acc, trip) => {
-
-    return acc +=
+  return filterTrips.reduce((tripsSummary, trip) => {
+    return tripsSummary +=
     `<div>Trip date: ${trip.date}</div>
     <div>Trip Duration: ${trip.duration}</div>
     <div>Trip Location: ${trip.destination}</div>
     <div>Trip Status: ${trip.status}</div>
     <div>Total Trip Cost: ${trip.totalTripCost}</div>
     <div>Agency Fee: ${trip.agencyFees}</div>
-    <div>Overall Cost: ${trip.overallCost}</div>`
+    <div>Overall Cost: ${trip.overallCost}</div>
+    <div>All-time Spent: ${traveler.calculateTotalSpentOverall()}</div>`
   },'')
 }
 

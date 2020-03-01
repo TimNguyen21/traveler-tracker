@@ -5,7 +5,7 @@ import trips from '../src/data/trips.js'
 import destinations from '../src/data/destinations.js'
 
 describe("Traveler", function() {
-  let travelerData;
+  let travelerData, traveler;
 
   beforeEach(() => {
     travelerData = {
@@ -14,6 +14,8 @@ describe("Traveler", function() {
       "travelerType":"relaxer"
     }
 
+    traveler = new Traveler(travelerData, trips, destinations);
+
   })
 
   it("should be a function", function() {
@@ -21,15 +23,11 @@ describe("Traveler", function() {
   });
 
   it("should be an instance of a Traveler", function() {
-    let traveler = new Traveler(travelerData, trips);
-
     expect(traveler).to.be.an.instanceof(Traveler);
   });
 
   it("should return user's trip data based on user ID", function() {
-    let traveler = new Traveler(travelerData, trips);
-
-    expect(traveler.filterTravelerTrips(destinations)).to.deep.equal([
+    expect(traveler.filterTravelerTrips()).to.deep.equal([
       {
         id: 117,
         travelers: 3,
@@ -38,14 +36,18 @@ describe("Traveler", function() {
         status: 'approved',
         suggestedActivities: [],
         destination: 'San Juan, Puerto Rico',
-        totalTripCost: '3750.00',
-        agencyFees: '375.00',
-        overallCost: '4125.00',
+        totalTripCost: 3750,
+        agencyFees: 375,
+        overallCost: 4125,
         destinationImage: 'https://images.unsplash.com/photo-1580237541049-2d715a09486e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2090&q=80',
         destinationAlt: 'white and brown concrete buildings near sea under white clouds during daytime'
       }]
     )
   })
+
+  it("should return user's overall total cost", function() {
+    expect(traveler.calculateTotalSpentOverall()).to.equal(4125);
+  });
 
 
 
