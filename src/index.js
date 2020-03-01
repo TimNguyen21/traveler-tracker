@@ -8,19 +8,21 @@ import $ from 'jquery';
 import './css/base.scss';
 import travelers from './data/traveler.js';
 import trips from '../src/data/trips.js';
-import destinations from '../src/data/destinations.js'
+import destinations from '../src/data/destinations.js';
 
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import Login from './Login'
-import Traveler from './Traveler'
+import Login from './Login';
+import Traveler from './Traveler';
+import Agency from './Agency';
 
 $('.login-button').click(function() {
   let login = new Login($(".username-input").val(), $(".password-input").val())
   let loginResult = login.checkUserStatus(travelers);
 
   if (loginResult === 'agency') {
-    $("main").html('Agwncy info');
+    $("main").html('');
+    $("main").html(populateAgencyInfo(loginResult))
   } else if (loginResult === "invalid login") {
     $(".login-error-message").html("please enter valid credentials");
   } else {
@@ -28,6 +30,23 @@ $('.login-button').click(function() {
     $("main").html(populateTravelerInfo(loginResult, travelers));
   }
 })
+
+function populateAgencyInfo(agencyId) {
+  let agency = new Agency(agencyId, travelers, trips, destinations);
+  let pendingRequest = agency.filterNewTripRequest();
+
+  return pendingRequest.reduce((pendingSummary, request) => {
+    return pendingSummary +=
+    `<div>RequestID: ${request.id}</div>
+    <div>Request Name: ${agency.travelData.find(traveler => traveler.id ===request.userID).name}</div>
+    <div>Request Destination: ${agency.destinationData.find(destination => destination.id === request.destinationID).destination}</div>
+    <div>Request Date: ${request.date}</div>
+    <div>Request Duration: ${request.duration}</div>
+    <div>Request Status: ${request.status}</div>
+    <button>Approve</button>`
+  }, '')
+
+}
 
 function populateTravelerInfo(userID, travelersData) {
   let travelerInfo = travelersData.find(traveler => traveler.id === userID);
