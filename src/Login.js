@@ -5,7 +5,7 @@ class Login {
   }
 
   checkUserStatus(travelersData) {
-    if(this.userName.toLowerCase() === 'agent' && this.password === 'password2020') {
+    if(this.userName.toLowerCase() === 'agency' && this.password === 'password2020') {
       return this.userName.toLowerCase();
     } else if(this.checkTraveler(travelersData) === true && this.password === 'password2020') {
       return parseInt(this.userName.slice(8));

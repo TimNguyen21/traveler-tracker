@@ -37,32 +37,27 @@ describe("Login", function() {
   });
 
   it("should return agent userName", function() {
-    let login = new Login('agent', 'password2020');
-    console.log(login.checkUserStatus(travelersData))
+    let login = new Login('agency', 'password2020');
 
-    expect(login.checkUserStatus(travelersData)).to.be.equal('agent');
+    expect(login.checkUserStatus(travelersData)).to.be.equal('agency');
   });
 
   it("should return user's ID", function() {
     let login = new Login('traveler2', 'password2020');
-    console.log(login.checkUserStatus(travelersData))
 
     expect(login.checkUserStatus(travelersData)).to.be.equal(2);
   })
 
   it("should return invalid login with invalid password", function() {
-    let login = new Login('agent', 'password');
-    console.log(login.checkUserStatus(travelersData))
+    let login = new Login('agency', 'password');
 
     expect(login.checkUserStatus(travelersData)).to.be.equal('invalid login');
   })
 
   it("should return invalid login with invalid username", function() {
     let login = new Login('traveler20', 'password2020');
-    console.log(login.checkUserStatus(travelersData))
 
     expect(login.checkUserStatus(travelersData)).to.be.equal('invalid login');
   })
-
 
 })
