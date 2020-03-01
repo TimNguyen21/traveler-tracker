@@ -27,6 +27,7 @@ $('.login-button').click(function() {
     $(".login-error-message").html("please enter valid credentials");
   } else {
     $("main").html('')
+    $("main").removeClass('login-main').addClass('traveler-main');
     $("main").html(populateTravelerInfo(loginResult, travelers));
   }
 })
@@ -35,35 +36,69 @@ function populateAgencyInfo(agencyId) {
   let agency = new Agency(agencyId, travelers, trips, destinations);
   let pendingRequest = agency.filterNewTripRequest();
 
-  return pendingRequest.reduce((pendingSummary, request) => {
+  let pendingRequestSummary = pendingRequest.reduce((pendingSummary, request) => {
     return pendingSummary +=
     `<div>RequestID: ${request.id}</div>
-    <div>Request Name: ${agency.travelData.find(traveler => traveler.id ===request.userID).name}</div>
-    <div>Request Destination: ${agency.destinationData.find(destination => destination.id === request.destinationID).destination}</div>
-    <div>Request Date: ${request.date}</div>
-    <div>Request Duration: ${request.duration}</div>
-    <div>Request Status: ${request.status}</div>
-    <button>Approve</button>`
+    <div>Name: ${agency.travelData.find(traveler => traveler.id ===request.userID).name}</div>
+    <div>Destination: ${agency.destinationData.find(destination => destination.id === request.destinationID).destination}</div>
+    <div>Date: ${request.date}</div>
+    <div>Duration: ${request.duration}</div>
+    <div>Status: ${request.status}</div>
+    <button>Approve Request</button>
+    <button>Deny Request</button>`
   }, '')
+
+  return `<section>
+  <div>Agent Summary</div>
+    <div>Estimated Current Year Earnings: ${agency.calculateAgencyEarningsforYear("2020")}</div>
+    <br>
+    <div>Pending Requests</div>
+      <section>${pendingRequestSummary}</section>
+      </section>`
 
 }
 
 function populateTravelerInfo(userID, travelersData) {
   let travelerInfo = travelersData.find(traveler => traveler.id === userID);
   let traveler = new Traveler(travelerInfo, trips, destinations);
-  let filterTrips = traveler.filterTravelerTrips();
+  let filterTrips = traveler.filterTravelerTripsbyYear("2020");
+  $(".welcome-user").html(`Welcome, ${traveler.name}`);
 
-  return filterTrips.reduce((tripsSummary, trip) => {
+  let tripSummary = filterTrips.reduce((tripsSummary, trip) => {
     return tripsSummary +=
-    `<div>Trip date: ${trip.date}</div>
-    <div>Trip Duration: ${trip.duration}</div>
+    `<section class="trip-card">
+    <img class="destination-image" src="${trip.destinationImage}" alt="${trip.destinationAlt}">
     <div>Trip Location: ${trip.destination}</div>
+    <div>Trip date: ${trip.date}</div>
+    <div>Trip Duration: ${trip.duration}</div>
     <div>Trip Status: ${trip.status}</div>
-    <div>Total Trip Cost: ${trip.totalTripCost}</div>
-    <div>Agency Fee: ${trip.agencyFees}</div>
-    <div>Overall Cost: ${trip.overallCost}</div>
-    <div>All-time Spent: ${traveler.calculateTotalSpentOverall()}</div>`
+    <div>Overall Trip Cost: ${trip.overallCost}</div>
+    </section>
+    `
   },'')
+
+  return `
+    <section class="user-summary">
+      <h2>Traveler Summary</h2>
+      <div>Current Year Total Spent: ${traveler.calculateTotalSpentForYear("2020")}</div>
+      <div>All-Time Total Spent: ${traveler.calculateTotalSpentOverall()}</div>
+    </section>
+    <section class="user-trip-summary">
+      <h2>Past Trips</h2>
+      <div>${tripSummary}</div>
+    </section>
+    <section class="user-trip-summary">
+      <h2>Present Trips</h2>
+      <div></div>
+    </section>
+    <section class="user-trip-summary">
+      <h2>Upcoming Trips</h2>
+      <div>${tripSummary}</div>
+    </section>
+    <section class="user-trip-summary">
+      <h2>Pending Trips</h2>
+      <div>${tripSummary}</div>
+    </section>`
 }
 
 console.log('This is the JavaScript entry file - your code begins here.');
