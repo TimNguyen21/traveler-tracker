@@ -40,12 +40,17 @@
   }
 }
 
-.search-destination {
+.search-destination-section {
   @include display-flex-center();
   button {
     @include padding-margin-point-two-em();
     width: 50%;
   }
+}
+
+.search-results {
+  height: 45em;
+  overflow: auto;
 }
 
 .destination-image {
