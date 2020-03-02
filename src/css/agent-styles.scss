@@ -10,7 +10,7 @@
   padding-bottom: 1em;
   margin: 1em 2em 0em 0em;
   width: 90%;
-  height: 10%;
+  height: 10em;
 }
 
 .search-user {
@@ -34,4 +34,9 @@
     width: 100%;
     font-size: 0.9em;
   }
+}
+
+.pending-request {
+  height: 45em;
+  overflow: auto;
 }
