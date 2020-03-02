@@ -21,9 +21,11 @@
   - [ ] Login.js
   - [ ] Agency.js
   - [ ] Traveler.js
+  - [ ] Trip.js
   - [ ] index.js
   - [ ] index.html
 #### test directory
 - [ ] login-test.js
 - [ ] agency-test.js
 - [ ] traveler-test.js
+- [ ] trip-test.js
