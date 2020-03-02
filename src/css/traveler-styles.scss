@@ -40,7 +40,7 @@
   }
 }
 
-.search-destination {
+.search-destination-section {
   @include display-flex-center();
   button {
     @include padding-margin-point-two-em();
@@ -48,7 +48,13 @@
   }
 }
 
-.destination-image {
+.search-results {
+  height: 45em;
+  overflow: auto;
+}
+
+.destination-image,
+.search-destination-image {
   width: 100%;
   height: 50%;
   margin-bottom: 1em;

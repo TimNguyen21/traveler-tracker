@@ -5,6 +5,7 @@ var moment = require('moment');
 import Login from './Login';
 import Traveler from './Traveler';
 import Agency from './Agency';
+import Trip from './Trip';
 
 // FETCH DATA //
 let travelers = fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/travelers/travelers")
@@ -37,14 +38,41 @@ $('.login-button').click(function() {
   if (loginResult === 'agency') {
     $("main").html('');
     $("main").removeClass('login-main').addClass('agent-main');
-    $("main").html(populateAgencyInfo(loginResult))
+    $("main").html(populateAgencyInfo(loginResult));
+    $(".approve-button").click(function() {
+      console.log(event.target.dataset.id)
+      $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Approved`)
+    });
+    $(".deny-button").click(function() {
+      console.log(event.target.dataset.id)
+      $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Denied`)
+    });
   } else if (loginResult === "invalid login") {
     $(".login-error-message").html("*please enter valid credentials");
   } else {
     $("main").html('')
     $("main").removeClass('login-main').addClass('traveler-main');
     $("main").html(populateTravelerInfo(loginResult, travelers));
-    console.log(trips)
+    $(".search-destination-button").click(function() {
+      let trip = new Trip(travelers, trips, destinations)
+      $(".search-results").html("");
+      let $searchWord = $(".search-destination-input").val();
+      $(".search-results").html(displayAllDestination(trip.searchDestination($searchWord)));
+      $(".search-destination-image").click(function() {
+        console.log(event.target.dataset.id)
+      });
+    })
+    $(".reset-destination-button").click(function() {
+      $(".search-results").html("");
+      let $defaultSearch = displayAllDestination(destinations);
+      $(".search-results").html($defaultSearch);
+      $(".search-destination-image").click(function() {
+        console.log(event.target.dataset.id)
+      })
+    })
+    $(".search-destination-image").click(function() {
+      console.log(event.target.dataset.id)
+    })
   }
 })
 
@@ -62,8 +90,8 @@ function populateAgencyInfo(agencyId) {
       <div>Destination: ${agency.destinationData.find(destination => destination.id === request.destinationID).destination}</div>
       <div>Duration: ${request.duration} days</div>
       <div>Status: ${request.status}</div>
-      <button>Approve Request</button>
-      <button>Deny Request</button>
+      <button data-id="${request.id}" class="approve-button">Approve Request</button>
+      <button data-id="${request.id}" class="deny-button">Deny Request</button>
     </section>`
   }, '')
 
@@ -89,7 +117,7 @@ function populateAgencyInfo(agencyId) {
       <section class="pending-request">${pendingRequestSummary}</section>
     </section>
     <section>
-    <div>Current Travelers</div>
+    <div>Today's Traveling Travelers</div>
       <section>${usersCurrentlySummary}</section>
     </section>
     <section class="search-user">
@@ -134,11 +162,12 @@ function populateTravelerInfo(userID, travelersData) {
       <h2>Pending Trips</h2>
       <div>${pendingTrips}</div>
     </section>
-    <section class="search-destination">
-      <label>Search Destination</label>
-      <input></input>
-      <button>Search</button>
-      <div class="search-results"></div>
+    <section class="search-destination-section">
+      <label for="search-destination-input">Search Destination</label>
+      <input id="search-destination-input" class="search-destination-input"></input>
+      <button id="search-destination-button" class="search-destination-button">Search</button>
+      <button id="reset-destination-button" class="reset-destination-button">Reset Search</button>
+      <div class="search-results">${displayAllDestination(destinations)}</div>
     </section>`
 }
 
@@ -152,6 +181,18 @@ function populateUserTrips(tripsData) {
       <div><span>Trip Duration:</span> ${trip.duration}</div>
       <div><span>Trip Status:</span> ${trip.status}</div>
       <div><span>Overall Trip Cost:</span> ${formatter.format(trip.overallCost)}</div>
+    </section>`
+  },'')
+}
+
+function displayAllDestination(destinationsData) {
+  return destinationsData.reduce((destinationSummary, destination) => {
+    return destinationSummary +=
+    `<section class="trip-card">
+      <img data-id="${destination.id}" class="search-destination-image" src="${destination.image}" alt="${destination.alt}">
+      <div><span>Location:</span> ${destination.destination}</div>
+      <div><span>Estimated Lodging Per Day:</span> ${destination.estimatedLodgingCostPerDay}</div>
+      <div><span>Estimated Cost Per Person:</span> ${destination.estimatedFlightCostPerPerson}</div>
     </section>`
   },'')
 }
