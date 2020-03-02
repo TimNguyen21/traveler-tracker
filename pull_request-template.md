@@ -13,7 +13,11 @@
 ### Files modified:
 #### src directory
   - [ ] base.scss
-  - [ ] styles.scss
+  - [ ] variables.scss
+  - [ ] mixins.scss  
+  - [ ] login-styles.scss
+  - [ ] traveler-styles.scss
+  - [ ] agent-styles.scss
   - [ ] Login.js
   - [ ] Agency.js
   - [ ] Traveler.js
