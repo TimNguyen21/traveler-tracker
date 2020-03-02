@@ -1,6 +1,6 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
-
+var moment = require('moment');
 // An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
 
@@ -78,10 +78,66 @@ function populateAgencyInfo(agencyId) {
 function populateTravelerInfo(userID, travelersData) {
   let travelerInfo = travelersData.find(traveler => traveler.id === userID);
   let traveler = new Traveler(travelerInfo, trips, destinations);
-  let filterTrips = traveler.filterTravelerTripsbyYear("2020");
+  // let filterTrips = traveler.filterTravelerTripsbyYear("2020");
+  let filterUpcomingTrips = traveler.filterUpcomingTrips();
+  let filterPastTrips = traveler.filterPastTrips();
+  let filterPendingTrips = traveler.filterPendingTrips();
+  let filterPresentTrip = traveler.filterPresentTrips();
   $(".welcome-user").html(`Welcome, ${traveler.name}`);
 
-  let tripSummary = filterTrips.reduce((tripsSummary, trip) => {
+  // let tripSummary = filterTrips.reduce((tripsSummary, trip) => {
+  //   return tripsSummary +=
+  //   `<section class="trip-card">
+  //   <img class="destination-image" src="${trip.destinationImage}" alt="${trip.destinationAlt}">
+  //   <div><span>Trip Location:</span> ${trip.destination}</div>
+  //   <div><span>Trip date:</span> ${trip.date}</div>
+  //   <div><span>Trip Duration:</span> ${trip.duration}</div>
+  //   <div><span>Trip Status:</span> ${trip.status}</div>
+  //   <div>Overall Trip Cost: ${trip.overallCost}</div>
+  //   </section>
+  //   `
+  // },'')
+
+  let tripPresentSummary = filterPresentTrip.reduce((tripsSummary, trip) => {
+    return tripsSummary +=
+    `<section class="trip-card">
+    <img class="destination-image" src="${trip.destinationImage}" alt="${trip.destinationAlt}">
+    <div><span>Trip Location:</span> ${trip.destination}</div>
+    <div><span>Trip date:</span> ${trip.date}</div>
+    <div><span>Trip Duration:</span> ${trip.duration}</div>
+    <div><span>Trip Status:</span> ${trip.status}</div>
+    <div>Overall Trip Cost: ${trip.overallCost}</div>
+    </section>
+    `
+  },'')
+
+  let pastTripSummary = filterPastTrips.reduce((tripsSummary, trip) => {
+    return tripsSummary +=
+    `<section class="trip-card">
+    <img class="destination-image" src="${trip.destinationImage}" alt="${trip.destinationAlt}">
+    <div><span>Trip Location:</span> ${trip.destination}</div>
+    <div><span>Trip date:</span> ${trip.date}</div>
+    <div><span>Trip Duration:</span> ${trip.duration}</div>
+    <div><span>Trip Status:</span> ${trip.status}</div>
+    <div>Overall Trip Cost: ${trip.overallCost}</div>
+    </section>
+    `
+  },'')
+
+  let upcomingTrips = filterUpcomingTrips.reduce((tripsSummary, trip) => {
+    return tripsSummary +=
+    `<section class="trip-card">
+    <img class="destination-image" src="${trip.destinationImage}" alt="${trip.destinationAlt}">
+    <div><span>Trip Location:</span> ${trip.destination}</div>
+    <div><span>Trip date:</span> ${trip.date}</div>
+    <div><span>Trip Duration:</span> ${trip.duration}</div>
+    <div><span>Trip Status:</span> ${trip.status}</div>
+    <div>Overall Trip Cost: ${trip.overallCost}</div>
+    </section>
+    `
+  },'')
+
+  let pendingTrips = filterPendingTrips.reduce((tripsSummary, trip) => {
     return tripsSummary +=
     `<section class="trip-card">
     <img class="destination-image" src="${trip.destinationImage}" alt="${trip.destinationAlt}">
@@ -98,25 +154,25 @@ function populateTravelerInfo(userID, travelersData) {
     <section class="user-summary">
       <h2>Traveler Summary</h2>
       <div>Current Year Total Spent:</div>
-        <div>${traveler.calculateTotalSpentForYear("2020")}</div>
+        <div>${traveler.calculateTotalSpentForYear(moment().format("YYYY"))}</div>
       <div>All-Time Total Spent:</div>
         <div>${traveler.calculateTotalSpentOverall()}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Past Trips</h2>
-      <div>${tripSummary}</div>
+      <div>${pastTripSummary}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Present Trips</h2>
-      <div></div>
+      <div>${tripPresentSummary}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Upcoming Trips</h2>
-      <div>${tripSummary}</div>
+      <div>${upcomingTrips}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Pending Trips</h2>
-      <div>${tripSummary}</div>
+      <div>${pendingTrips}</div>
     </section>
     <section class="search-destination">
       <label>Search Destination</label>
@@ -125,5 +181,3 @@ function populateTravelerInfo(userID, travelersData) {
       <div class="search-results"></div>
     </section>`
 }
-
-console.log('This is the JavaScript entry file - your code begins here.');

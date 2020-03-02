@@ -5,16 +5,22 @@ import trips from '../src/data/trips.js'
 import destinations from '../src/data/destinations.js'
 
 describe("Traveler", function() {
-  let travelerData, traveler;
+  let travelerData1, travelerData2, traveler, traveler2;
 
   beforeEach(() => {
-    travelerData = {
+    travelerData1 = {
       "id":1,
       "name":"Ham Leadbeater",
       "travelerType":"relaxer"
-    }
+    },
 
-    traveler = new Traveler(travelerData, trips, destinations);
+    travelerData2 = {"id":47,
+      "name":"Den Dossettor",
+      "travelerType":"relaxer"
+    },
+
+    traveler = new Traveler(travelerData1, trips, destinations);
+    traveler2 = new Traveler(travelerData2, trips, destinations);
 
   })
 
@@ -76,8 +82,23 @@ describe("Traveler", function() {
     )
   })
 
-  it("should return user's all-time overall total spent", function() {
-    expect(traveler.calculateTotalSpentOverall()).to.equal(4125);
-  });
+  it("should return user's pending trips", function() {
+    expect(traveler2.filterPendingTrips()).to.deep.equal([
+      {
+        id: 83,
+        travelers: 1,
+        date: '2020/05/06',
+        duration: 11,
+        status: 'pending',
+        suggestedActivities: [],
+        destination: 'London, England',
+        totalTripCost: 2100,
+        agencyFees: 210,
+        overallCost: 2310,
+        destinationImage: 'https://images.unsplash.com/photo-1549471156-52ee71691122?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+        destinationAlt: 'city with bridge under night sky'
+      }]
+    )
+  })
 
 })
