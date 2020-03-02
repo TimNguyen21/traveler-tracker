@@ -26,6 +26,7 @@ describe("Agency", function() {
   });
 
   it("should return Agency earning based on year 2019", function() {
+    console.log(agency.searchTravelerSummary("Rachael Vaughten"))
     expect(agency.calculateAgencyEarningsforYear("2019")).to.be.equal(32275);
   });
 
