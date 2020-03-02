@@ -1,5 +1,8 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: #e1ede4;
+@import 'variables';
+@import 'mixins';
+@import 'agent-styles';
+@import 'traveler-styles';
+@import 'login-styles';
 
 body {
   background-color: $primary-background;
@@ -7,78 +10,6 @@ body {
 
 header {
   text-align: center;
-  border-bottom: 1px solid #9fe3b0;
-  margin-bottom: 1em;
-}
-
-.login-main {
-  display: flex;
-  justify-content: center;
-}
-
-.traveler-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-
-.login-section {
-  width: 15em;
-  flex-direction: column;
-  border: 1px solid #9fe3b0;
-  padding: 0.5em;
-  background-color: white;
-  box-shadow: 3px 3px #6ab07b;
-    label, button {
-      font-size: 1em;
-    }
-    input {
-      width: 15em;
-      margin: 1em;
-    }
-    button {
-      width: 50%;
-      padding: 0.2em;
-      margin: 0.2em;
-    }
-}
-
-.user-summary {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #9fe3b0;
-  padding-bottom: 1em;
-  margin: 1em;
-  width: 90%;
-  height: 7em;
-  box-shadow: 3px 3px #6ab07b;
-}
-
-.user-trip-summary {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  h2 {
-    font-size: 1em;
-    align-self: flex-start;
-    border-bottom: 1px solid black;
-  }
-}
-
-.trip-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  border: 1px solid #9fe3b0;
-  box-shadow: 3px 3px #6ab07b;
-  padding: 1em;
-  margin-bottom: 1em;
-}
-
-.destination-image {
-  width: 80%;
-  height: 50%;
+  border-bottom: $border-solid-green;
   margin-bottom: 1em;
 }

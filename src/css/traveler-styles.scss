@@ -1,0 +1,53 @@
+.traveler-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.user-summary {
+  @include display-flex-center();
+  border: $border-solid-green;
+  box-shadow: $box-shadow-green;
+  padding-bottom: 1em;
+  margin: 1em 2em 0em 0em;
+  width: 90%;
+  height: 30%;
+}
+
+.user-trip-summary {
+  @include display-flex-center();
+  width: 100%;
+  h2 {
+    align-self: flex-start;
+    font-size: 1em;
+    border-bottom: 1px solid black;
+  }
+}
+
+.trip-card {
+  border: $border-solid-green;
+  box-shadow: $box-shadow-green;
+  width: 80%;
+  padding: 1em;
+  margin-bottom: 1em;
+  div {
+    font-style: italic;
+    margin: 0.1em;
+    span {
+      font-weight: bold;
+    }
+  }
+}
+
+.search-destination {
+  @include display-flex-center();
+  button {
+    @include padding-margin-point-two-em();
+    width: 50%;
+  }
+}
+
+.destination-image {
+  width: 95%;
+  height: 50%;
+  margin-bottom: 1em;
+}
