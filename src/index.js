@@ -44,7 +44,8 @@ $('.login-button').click(function() {
       $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Approved`)
     });
     $(".deny-button").click(function() {
-      console.log(event.target.dataset.id)
+      let trip = new Trip(travelers, trips, destinations);
+      trip.removeTripRequest(event.target.dataset.id)
       $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Denied`)
     });
   } else if (loginResult === "invalid login") {
