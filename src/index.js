@@ -1,14 +1,34 @@
-var moment = require('moment');
-
 import $ from 'jquery';
 import './css/base.scss';
-import travelers from './data/traveler.js';
-import trips from '../src/data/trips.js';
-import destinations from '../src/data/destinations.js';
+var moment = require('moment');
 
 import Login from './Login';
 import Traveler from './Traveler';
 import Agency from './Agency';
+
+// FETCH DATA //
+let travelers = fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/travelers/travelers")
+  .then(response => response.json())
+  .then(data => data.travelers)
+  .catch(error => console.log(error.message));
+
+let trips = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips')
+  .then(response => response.json())
+  .then(data => data.trips)
+  .catch(error => console.log(error.message));
+
+let destinations = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/destinations/destinations')
+  .then(response => response.json())
+  .then(data => data.destinations)
+  .catch(error => console.log(error.message));
+
+Promise.all([travelers, trips, destinations])
+  .then(data => {
+    travelers = data[0];
+    trips = data[1];
+    destinations = data[2];
+  })
+  .catch(error => console.log(error.message))
 
 $('.login-button').click(function() {
   let login = new Login($(".username-input").val(), $(".password-input").val())
@@ -24,24 +44,37 @@ $('.login-button').click(function() {
     $("main").html('')
     $("main").removeClass('login-main').addClass('traveler-main');
     $("main").html(populateTravelerInfo(loginResult, travelers));
+    console.log(trips)
   }
 })
 
 function populateAgencyInfo(agencyId) {
   let agency = new Agency(agencyId, travelers, trips, destinations);
   let pendingRequest = agency.filterNewTripRequest();
+  let usersCurrentlyOnTrip = agency.currentUsersOnTrip();
 
-  let pendingRequestSummary = pendingRequest.reduce((pendingSummary, request) => {
-    return pendingSummary +=
+  let pendingRequestSummary = pendingRequest.reduce((summary, request) => {
+    return summary +=
     `<section class="pending-summary">
       <div>RequestID: ${request.id}</div>
-      <div>Name: ${agency.travelData.find(traveler => traveler.id ===request.userID).name}</div>
-      <div>Destination: ${agency.destinationData.find(destination => destination.id === request.destinationID).destination}</div>
       <div>Date: ${request.date}</div>
-      <div>Duration: ${request.duration}</div>
+      <div>Name: ${agency.travelData.find(traveler => traveler.id === request.userID).name}</div>
+      <div>Destination: ${agency.destinationData.find(destination => destination.id === request.destinationID).destination}</div>
+      <div>Duration: ${request.duration} days</div>
       <div>Status: ${request.status}</div>
       <button>Approve Request</button>
       <button>Deny Request</button>
+    </section>`
+  }, '')
+
+  let usersCurrentlySummary = usersCurrentlyOnTrip.reduce((summary, request) => {
+    return summary +=
+    `<section class="pending-summary">
+      <div>RequestID: ${request.requestID}</div>
+      <div>Date: ${request.date}</div>
+      <div>Name: ${agency.travelData.find(traveler => traveler.id === request.userID).name}</div>
+      <div>Destination: ${request.destination}</div>
+      <div>Duration: ${request.duration} days</div>
     </section>`
   }, '')
 
@@ -57,7 +90,7 @@ function populateAgencyInfo(agencyId) {
     </section>
     <section>
     <div>Current Travelers</div>
-      <section>Travelers info</section>
+      <section>${usersCurrentlySummary}</section>
     </section>
     <section class="search-user">
       <label>Search User</label>
@@ -67,7 +100,6 @@ function populateAgencyInfo(agencyId) {
     </section>
     `
 }
-
 
 function populateTravelerInfo(userID, travelersData) {
   let travelerInfo = travelersData.find(traveler => traveler.id === userID);
