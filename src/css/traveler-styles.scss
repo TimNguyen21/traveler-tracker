@@ -48,9 +48,8 @@
   }
 }
 
-.search-results {
-  height: 45em;
-  overflow: auto;
+.search-results, .trip-section {
+  @include overflow(45em)
 }
 
 .destination-image,

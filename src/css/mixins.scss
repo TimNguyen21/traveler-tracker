@@ -8,3 +8,8 @@
   padding: 0.2em;
   margin: 0.2em;
 }
+
+@mixin overflow($height) {
+  height: $height;
+  overflow: auto;
+}
