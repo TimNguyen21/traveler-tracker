@@ -40,7 +40,8 @@ $('.login-button').click(function() {
     $("main").removeClass('login-main').addClass('agent-main');
     $("main").html(populateAgencyInfo(loginResult));
     $(".approve-button").click(function() {
-      console.log(event.target.dataset.id)
+      let trip = new Trip(travelers, trips, destinations);
+      trip.approveTripRequest(event.target.dataset.id)
       $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Approved`)
     });
     $(".deny-button").click(function() {
@@ -59,23 +60,23 @@ $('.login-button').click(function() {
       $(".search-results").html("");
       let $searchWord = $(".search-destination-input").val();
       $(".search-results").html(displayAllDestination(trip.searchDestination($searchWord)));
-      $(".search-destination-image").click(function() {
-        console.log(event.target.dataset.id)
-      });
+      openForm();
     })
     $(".reset-destination-button").click(function() {
       $(".search-results").html("");
       let $defaultSearch = displayAllDestination(destinations);
       $(".search-results").html($defaultSearch);
-      $(".search-destination-image").click(function() {
-        console.log(event.target.dataset.id)
-      })
+      openForm();
     })
-    $(".search-destination-image").click(function() {
-      console.log(event.target.dataset.id)
-    })
+    openForm();
   }
 })
+
+function openForm() {
+  return $(".search-destination-image").click(function() {
+    console.log(event.target.dataset.id)
+  })
+}
 
 function populateAgencyInfo(agencyId) {
   let agency = new Agency(agencyId, travelers, trips, destinations);
@@ -149,19 +150,19 @@ function populateTravelerInfo(userID, travelersData) {
     </section>
     <section class="user-trip-summary">
       <h2>Past Trips</h2>
-      <div>${pastTripsSummary}</div>
+      <div class="trip-section">${pastTripsSummary}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Present Trips</h2>
-      <div>${presentTripsSummary}</div>
+      <div class="trip-section">${presentTripsSummary}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Upcoming Trips</h2>
-      <div>${upcomingTrips}</div>
+      <div class="trip-section">${upcomingTrips}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Pending Trips</h2>
-      <div>${pendingTrips}</div>
+      <div class="trip-section">${pendingTrips}</div>
     </section>
     <section class="search-destination-section">
       <label for="search-destination-input">Search Destination</label>
