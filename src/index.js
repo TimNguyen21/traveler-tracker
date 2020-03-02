@@ -51,6 +51,11 @@ $('.login-button').click(function() {
       let $searchWord = $(".search-destination-input").val();
       $(".search-results").html(displayAllDestination(trip.searchDestination($searchWord)));
     })
+    $(".reset-destination-button").click(function() {
+      $(".search-results").html("");
+      let $defaultSearch = displayAllDestination(destinations);
+      $(".search-results").html($defaultSearch);
+    })
   }
 })
 
@@ -144,7 +149,7 @@ function populateTravelerInfo(userID, travelersData) {
       <label for="search-destination-input">Search Destination</label>
       <input id="search-destination-input" class="search-destination-input"></input>
       <button id="search-destination-button" class="search-destination-button">Search</button>
-      <button id="reset-destination-button">Reset Search</button>
+      <button id="reset-destination-button" class="reset-destination-button">Reset Search</button>
       <div class="search-results">${displayAllDestination(destinations)}</div>
     </section>`
 }
