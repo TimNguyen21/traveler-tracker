@@ -30,18 +30,30 @@ $('.login-button').click(function() {
 function populateAgencyInfo(agencyId) {
   let agency = new Agency(agencyId, travelers, trips, destinations);
   let pendingRequest = agency.filterNewTripRequest();
+  let usersCurrentlyOnTrip = agency.currentUsersOnTrip();
 
-  let pendingRequestSummary = pendingRequest.reduce((pendingSummary, request) => {
-    return pendingSummary +=
+  let pendingRequestSummary = pendingRequest.reduce((summary, request) => {
+    return summary +=
     `<section class="pending-summary">
       <div>RequestID: ${request.id}</div>
-      <div>Name: ${agency.travelData.find(traveler => traveler.id ===request.userID).name}</div>
-      <div>Destination: ${agency.destinationData.find(destination => destination.id === request.destinationID).destination}</div>
       <div>Date: ${request.date}</div>
-      <div>Duration: ${request.duration}</div>
+      <div>Name: ${agency.travelData.find(traveler => traveler.id === request.userID).name}</div>
+      <div>Destination: ${agency.destinationData.find(destination => destination.id === request.destinationID).destination}</div>
+      <div>Duration: ${request.duration} days</div>
       <div>Status: ${request.status}</div>
       <button>Approve Request</button>
       <button>Deny Request</button>
+    </section>`
+  }, '')
+
+  let usersCurrentlySummary = usersCurrentlyOnTrip.reduce((summary, request) => {
+    return summary +=
+    `<section class="pending-summary">
+      <div>RequestID: ${request.requestID}</div>
+      <div>Date: ${request.date}</div>
+      <div>Name: ${agency.travelData.find(traveler => traveler.id === request.userID).name}</div>
+      <div>Destination: ${request.destination}</div>
+      <div>Duration: ${request.duration} days</div>
     </section>`
   }, '')
 
@@ -57,7 +69,7 @@ function populateAgencyInfo(agencyId) {
     </section>
     <section>
     <div>Current Travelers</div>
-      <section>Travelers info</section>
+      <section>${usersCurrentlySummary}</section>
     </section>
     <section class="search-user">
       <label>Search User</label>
