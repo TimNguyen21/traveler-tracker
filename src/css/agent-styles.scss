@@ -1,0 +1,37 @@
+.agent-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.agent-summary {
+  @include display-flex-center();
+  border: $border-solid-green;
+  box-shadow: $box-shadow-green;
+  padding-bottom: 1em;
+  margin: 1em 2em 0em 0em;
+  width: 90%;
+  height: 10%;
+}
+
+.search-user {
+  @include display-flex-center();
+  button {
+    @include padding-margin-point-two-em();
+    width: 50%;
+  }
+}
+
+.pending-summary {
+  border: $border-solid-green;
+  box-shadow: $box-shadow-green;
+  margin: 1em;
+  padding: 1em;
+  div {
+    margin: 0.5em;
+  }
+  button {
+    @include padding-margin-point-two-em();
+    width: 100%;
+    font-size: 0.9em;
+  }
+}

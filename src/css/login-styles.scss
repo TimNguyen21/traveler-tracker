@@ -1,0 +1,27 @@
+.login-main {
+  display: flex;
+  justify-content: center;
+}
+
+.login-section {
+  @include display-flex-center();
+  border: $border-solid-green;
+  box-shadow: $box-shadow-green;
+  width: 15em;
+  padding: 0.5em;
+  background-color: white;
+  label, button {
+    font-size: 1em;
+  }
+  input {
+    width: 15em;
+    margin: 1em;
+  }
+  button {
+    @include padding-margin-point-two-em();
+    width: 50%;
+  }
+  .login-error-message {
+    color: red;
+  }
+}

@@ -1,12 +1,15 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: #bceef7;
+@import 'variables';
+@import 'mixins';
+@import 'agent-styles';
+@import 'traveler-styles';
+@import 'login-styles';
 
 body {
   background-color: $primary-background;
 }
 
-.login-section {
-  display: flex;
-  width: 20em;
-  flex-direction: column;
+header {
+  text-align: center;
+  border-bottom: $border-solid-green;
+  margin-bottom: 1em;
 }

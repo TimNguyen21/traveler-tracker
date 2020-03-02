@@ -1,0 +1,10 @@
+@mixin display-flex-center() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin padding-margin-point-two-em() {
+  padding: 0.2em;
+  margin: 0.2em;
+}
