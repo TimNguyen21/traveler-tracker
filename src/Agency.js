@@ -10,6 +10,9 @@ class Agency {
 
   searchTravelerSummary(travelerName) {
     let userInfo = this.travelData.find(person => person.name.toLowerCase() === travelerName.toLowerCase());
+    if(userInfo === undefined) {
+      return undefined
+    }
     let userTripsTaken = this.tripsData.filter(trip => trip.userID === userInfo.id);
     let currentDay = moment();
 
