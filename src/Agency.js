@@ -10,7 +10,7 @@ class Agency {
     return this.tripsData.filter(trip => trip.status === "pending")
   }
 
-  calculateAgencyEarnings(year) {
+  calculateAgencyEarningsforYear(year) {
     let approvedTrips = this.tripsData.filter(trip => trip.status === "approved" && trip.date.includes(year));
 
     let costOfTrips = approvedTrips.map(trip => {

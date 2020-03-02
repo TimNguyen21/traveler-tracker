@@ -22,11 +22,11 @@ describe("Agency", function() {
   });
 
   it("should return Agency earning based on year 2020", function() {
-    expect(agency.calculateAgencyEarnings("2020")).to.be.equal(71405);
+    expect(agency.calculateAgencyEarningsforYear("2020")).to.be.equal(71405);
   });
 
   it("should return Agency earning based on year 2019", function() {
-    expect(agency.calculateAgencyEarnings("2019")).to.be.equal(32275);
+    expect(agency.calculateAgencyEarningsforYear("2019")).to.be.equal(32275);
   });
 
 })
