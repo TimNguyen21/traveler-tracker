@@ -8,6 +8,40 @@ class Agency {
     this.destinationData = destinationData;
   }
 
+  searchTravelerSummary(travelerName) {
+    let userInfo = this.travelData.find(person => person.name.toLowerCase() === travelerName.toLowerCase());
+    if(userInfo === undefined) {
+      return undefined
+    }
+    let userTripsTaken = this.tripsData.filter(trip => trip.userID === userInfo.id);
+    let currentDay = moment();
+
+    let overallUserTripSummary = userTripsTaken.map(trip => {
+      let currentDestination = this.destinationData.find(destination => trip.destinationID === destination.id);
+
+      return {tripID: trip.id,
+        travelerID: trip.userID,
+        date: trip.date,
+        travelerName: this.travelData.find(user => trip.userID === user.id).name,
+        destinationID: currentDestination.id,
+        destinationName: currentDestination.destination,
+        travelers: trip.travelers,
+        duration: trip.duration,
+        status: trip.status,
+        estimatedLodgingCostPerDay: currentDestination.estimatedLodgingCostPerDay,
+        estimatedFlightCostPerPerson: currentDestination.estimatedFlightCostPerPerson,
+        totalCostPlusAgentFees: Math.round(((currentDestination.estimatedLodgingCostPerDay*trip.duration)+(currentDestination.estimatedFlightCostPerPerson*trip.travelers))*1.1),
+        destinationImage: currentDestination.image,
+        imageAlt: currentDestination.alt
+      }
+    })
+
+    return overallUserTripSummary.filter(trip => {
+      let startDate = moment(trip.date, 'YYYY/MM/DD');
+      return moment(currentDay).isBefore(startDate);
+    })
+  }
+
   filterNewTripRequest() {
     return this.tripsData.filter(trip => trip.status === "pending")
   }

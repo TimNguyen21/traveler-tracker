@@ -21,7 +21,7 @@
   }
 }
 
-.pending-summary {
+.pending-summary, .search-summary {
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
   margin: 1em;
@@ -37,6 +37,5 @@
 }
 
 .pending-request {
-  height: 45em;
-  overflow: auto;
+  @include overflow(45em)
 }

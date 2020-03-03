@@ -36,17 +36,45 @@ $('.login-button').click(function() {
   let loginResult = login.checkUserStatus(travelers);
 
   if (loginResult === 'agency') {
+    let agency = new Agency(loginResult, travelers, trips, destinations);
     $("main").html('');
     $("main").removeClass('login-main').addClass('agent-main');
-    $("main").html(populateAgencyInfo(loginResult));
+    $("main").html(populateAgencyInfo(loginResult, agency));
+
+    $(".agency-search-button").click(function() {
+      let $searchName = $(".agency-search-input").val()
+      if (agency.searchTravelerSummary($searchName) === undefined) {
+        $(".agency-search-results").html("");
+        $(".agency-search-results").html("Not a Traveler in Database");
+      } else {
+        $(".agency-search-results").html("");
+        let userSearchResult = agency.searchTravelerSummary($searchName)
+        let upcomingTripsSummary = travelerSearchResults(userSearchResult);
+        $(".agency-search-results").html(upcomingTripsSummary);
+        $(".search-deny-button").click(function() {
+          let trip = new Trip(travelers, trips, destinations);
+          trip.removeTripRequest(event.target.dataset.id)
+          $(event.target).closest('.search-summary').html(`RequestID:${event.target.dataset.id} is Cancelled`)
+        });
+      }
+    })
+
+    $(".agency-clear-button").click(function() {
+      $(".agency-search-results").html("");
+    })
+
     $(".approve-button").click(function() {
-      console.log(event.target.dataset.id)
+      let trip = new Trip(travelers, trips, destinations);
+      trip.approveTripRequest(event.target.dataset.id)
       $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Approved`)
     });
+
     $(".deny-button").click(function() {
-      console.log(event.target.dataset.id)
+      let trip = new Trip(travelers, trips, destinations);
+      trip.removeTripRequest(event.target.dataset.id)
       $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Denied`)
     });
+
   } else if (loginResult === "invalid login") {
     $(".login-error-message").html("*please enter valid credentials");
   } else {
@@ -58,26 +86,41 @@ $('.login-button').click(function() {
       $(".search-results").html("");
       let $searchWord = $(".search-destination-input").val();
       $(".search-results").html(displayAllDestination(trip.searchDestination($searchWord)));
-      $(".search-destination-image").click(function() {
-        console.log(event.target.dataset.id)
-      });
+      openForm();
     })
     $(".reset-destination-button").click(function() {
       $(".search-results").html("");
       let $defaultSearch = displayAllDestination(destinations);
       $(".search-results").html($defaultSearch);
-      $(".search-destination-image").click(function() {
-        console.log(event.target.dataset.id)
-      })
+      openForm();
     })
-    $(".search-destination-image").click(function() {
-      console.log(event.target.dataset.id)
-    })
+    openForm();
   }
 })
 
-function populateAgencyInfo(agencyId) {
-  let agency = new Agency(agencyId, travelers, trips, destinations);
+function travelerSearchResults(userSearchResult) {
+  return userSearchResult.reduce((summary, request) => {
+    return summary +=
+    `<section class="search-summary">
+      <div>RequestID: ${request.tripID}</div>
+      <div>Date: ${request.date}</div>
+      <div>Name: ${request.travelerName}</div>
+      <div>Destination: ${request.destinationName}</div>
+      <div>Duration: ${request.duration} days</div>
+      <div>Status: ${request.status}</div>
+      <div>Total Cost + Agency Fees: ${formatter.format(request.totalCostPlusAgentFees)}</div>
+      <button data-id="${request.tripID}" class="search-deny-button">Cancel Request</button>
+    </section>`
+  }, '')
+}
+
+function openForm() {
+  return $(".search-destination-image").click(function() {
+    console.log(event.target.dataset.id)
+  })
+}
+
+function populateAgencyInfo(agencyId, agency) {
   let pendingRequest = agency.filterNewTripRequest();
   let usersCurrentlyOnTrip = agency.currentUsersOnTrip();
 
@@ -121,10 +164,11 @@ function populateAgencyInfo(agencyId) {
       <section>${usersCurrentlySummary}</section>
     </section>
     <section class="search-user">
-      <label>Search User</label>
-      <input></input>
-      <button>Search</button>
-      <div class="search-results">?</div>
+      <label for="agency-search-input">Search User Name</label>
+      <input id="agency-search-input" class="agency-search-input"></input>
+      <button id="agency-search-button" class="agency-search-button">Search Traveler</button>
+      <button id="agency-clear-button" class="agency-clear-button">Clear Search</button>
+      <div class="agency-search-results"></div>
     </section>
     `
 }
@@ -148,19 +192,19 @@ function populateTravelerInfo(userID, travelersData) {
     </section>
     <section class="user-trip-summary">
       <h2>Past Trips</h2>
-      <div>${pastTripsSummary}</div>
+      <div class="trip-section">${pastTripsSummary}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Present Trips</h2>
-      <div>${presentTripsSummary}</div>
+      <div class="trip-section">${presentTripsSummary}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Upcoming Trips</h2>
-      <div>${upcomingTrips}</div>
+      <div class="trip-section">${upcomingTrips}</div>
     </section>
     <section class="user-trip-summary">
       <h2>Pending Trips</h2>
-      <div>${pendingTrips}</div>
+      <div class="trip-section">${pendingTrips}</div>
     </section>
     <section class="search-destination-section">
       <label for="search-destination-input">Search Destination</label>
