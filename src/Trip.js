@@ -43,6 +43,37 @@ class Trip {
       })
       .catch(error => console.log(error.message))
   }
+
+  submitTripRequest(userID, destinationID, travelers, date, duration) {
+    let tripRequest = {"id": Date.now(),
+      "userID": parseInt(userID),
+      "destinationID": parseInt(destinationID),
+      "travelers": parseInt(travelers),
+      "date": date,
+      "duration": parseInt(duration),
+      "status": "pending",
+      "suggestedActivities": []
+    }
+
+    console.log(tripRequest)
+
+    fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify(tripRequest),
+     })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => console.log(error.message))
+  }
+
 }
+
+
+
 
 export default Trip;
