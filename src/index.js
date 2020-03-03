@@ -129,8 +129,8 @@ function populateAgencyInfo(agencyId, agency) {
     `<section class="pending-summary">
       <div>RequestID: ${request.id}</div>
       <div>Date: ${request.date}</div>
-      <div>Name: ${agency.travelData.find(traveler => traveler.id === request.userID).name}</div>
-      <div>Destination: ${agency.destinationData.find(destination => destination.id === request.destinationID).destination}</div>
+      <div>Name: ${agency.travelData.find(traveler => traveler.id == request.userID).name}</div>
+      <div>Destination: ${agency.destinationData.find(destination => destination.id == request.destinationID).destination}</div>
       <div>Duration: ${request.duration} days</div>
       <div>Status: ${request.status}</div>
       <button data-id="${request.id}" class="approve-button">Approve Request</button>
