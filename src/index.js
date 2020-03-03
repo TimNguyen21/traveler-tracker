@@ -76,7 +76,6 @@ $('.login-button').click(function() {
       trip.removeTripRequest(event.target.dataset.id)
       $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Denied`)
     });
-
   } else if (loginResult === "invalid login") {
     $(".login-error-message").html("*please enter valid credentials");
   } else {
@@ -123,6 +122,13 @@ function openForm() {
     let currentTraveler = traveler.id
 
     $(`.trip-request${currentDestinationID}`).html(formRequestCard(currentDestinationID));
+    $('.calculate-request-cost').click(function() {
+      let $lodgingPerDay = $(`.lodging-per-day${currentDestinationID}`).html()
+      let $costPerPerson = $(`.cost-per-person${currentDestinationID}`).html()
+      let $travalers = $(`.travelers${currentDestinationID}`).val();
+      let $duration = $(`.duration${currentDestinationID}`).val();
+      $("#estimate-total-cost").html(`${formatter.format(trip.calculateTripTotal($lodgingPerDay, $costPerPerson, $travalers, $duration))}`)
+    })
     $(".submit-trip-request").click(function() {
       let $date = $(`.date${currentDestinationID}`).val();
       let $travalers = $(`.travelers${currentDestinationID}`).val();
@@ -144,6 +150,8 @@ function formRequestCard(destinationID) {
   <label for="enter-request-duration">Enter Duration:</label>
   <input id="enter-request-duration" class="enter-request-duration duration${destinationID}" type="number"></input>
   <button data-id="${destinationID}"id="calculate-request-cost" class="calculate-request-cost">Calculate Total Cost</button>
+  <label for="estimate-total-cost">Total Cost + Fees:</label>
+  <div id="estimate-total-cost">$0</div>
   <button data-id="${destinationID}"id="submit-trip-request" class="submit-trip-request">Submit Request</button>
   </div>
   `
@@ -185,8 +193,8 @@ function populateAgencyInfo(agencyId, agency) {
       <div>${formatter.format(agency.calculateAgencyEarningsforYear(moment().format("YYYY")))}</div>
     </section>
     <section>
-    <div>Pending Requests</div>
-      <section class="pending-request">${pendingRequestSummary}</section>
+    <label for="pending-request">Pending Requests:</label>
+      <section id="pending-request" class="pending-request">${pendingRequestSummary}</section>
     </section>
     <section>
     <div>Today's Traveling Travelers</div>
@@ -265,8 +273,8 @@ function displayAllDestination(destinationsData) {
       <div>Click Image to Book Trip</div>
       <img data-id="${destination.id}" class="search-destination-image" src="${destination.image}" alt="${destination.alt}">
       <div><span>Location:</span> ${destination.destination}</div>
-      <div class="lodging-per-day${destination.id}"><span>Estimated Lodging Per Day:</span> ${destination.estimatedLodgingCostPerDay}</div>
-      <div class="cost-per-person${destination.id}"><span>Estimated Cost Per Person:</span> ${destination.estimatedFlightCostPerPerson}</div>
+      <div><span>Estimated Lodging Per Day:</span> <div class="lodging-per-day${destination.id}">${destination.estimatedLodgingCostPerDay}</div></div>
+      <div><span>Estimated Cost Per Person:</span> <div class="cost-per-person${destination.id}">${destination.estimatedFlightCostPerPerson}</div></div>
       <div class="trip-request${destination.id}"></div>
     </section>`
   },'')

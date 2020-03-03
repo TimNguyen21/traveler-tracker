@@ -71,6 +71,10 @@ class Trip {
       .catch(error => console.log(error.message))
   }
 
+  calculateTripTotal(lodgingPerDay, costPerPerson, travlers, duration) {
+    return ((lodgingPerDay * duration)+(costPerPerson * travlers))*1.1
+  }
+
 }
 
 
