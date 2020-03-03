@@ -36,6 +36,7 @@
   }
 }
 
-.pending-request {
+.pending-request,
+.agency-search-results {
   @include overflow(45em)
 }

@@ -24,7 +24,7 @@
   }
 }
 
-.trip-card {
+.trip-card, .search-trip-card {
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
   background-color: $white-background;
@@ -57,4 +57,12 @@
   width: 100%;
   height: 50%;
   margin-bottom: 1em;
+}
+
+.trip-request-form {
+  @include display-flex-center();
+}
+
+.trip-request-label {
+  margin-top: 1em;
 }

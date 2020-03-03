@@ -7,6 +7,8 @@ import Traveler from './Traveler';
 import Agency from './Agency';
 import Trip from './Trip';
 
+let traveler;
+
 // FETCH DATA //
 let travelers = fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/travelers/travelers")
   .then(response => response.json())
@@ -116,8 +118,35 @@ function travelerSearchResults(userSearchResult) {
 
 function openForm() {
   return $(".search-destination-image").click(function() {
-    console.log(event.target.dataset.id)
+    let trip = new Trip(travelers, trips, destinations);
+    let currentDestinationID = event.target.dataset.id;
+    let currentTraveler = traveler.id
+
+    $(`.trip-request${currentDestinationID}`).html(formRequestCard(currentDestinationID));
+    $(".submit-trip-request").click(function() {
+      let $date = $(`.date${currentDestinationID}`).val();
+      let $travalers = $(`.travelers${currentDestinationID}`).val();
+      let $duration = $(`.duration${currentDestinationID}`).val();
+      trip.submitTripRequest(currentTraveler, currentDestinationID, $travalers, $date, $duration);
+      $(event.target).closest('.trip-request-form').html(`Your Request is Processed`)
+    })
   })
+}
+
+function formRequestCard(destinationID) {
+  return `
+  <div class="trip-request-form">
+  <label class="trip-request-label">Trip Request</label>
+  <label for="enter-request-date">Enter Date:</label>
+  <input id="enter-request-date" class="enter-request-date date${destinationID}" type='text' placeholder="YYYY/MM/DD"></input>
+  <label for="enter-request-travelers">Enter Travelers:</label>
+  <input id="enter-request-travelers" class="enter-request-travelers travelers${destinationID}" type="number"></input>
+  <label for="enter-request-duration">Enter Duration:</label>
+  <input id="enter-request-duration" class="enter-request-duration duration${destinationID}" type="number"></input>
+  <button data-id="${destinationID}"id="calculate-request-cost" class="calculate-request-cost">Calculate Total Cost</button>
+  <button data-id="${destinationID}"id="submit-trip-request" class="submit-trip-request">Submit Request</button>
+  </div>
+  `
 }
 
 function populateAgencyInfo(agencyId, agency) {
@@ -164,7 +193,7 @@ function populateAgencyInfo(agencyId, agency) {
       <section>${usersCurrentlySummary}</section>
     </section>
     <section class="search-user">
-      <label for="agency-search-input">Search User Name</label>
+      <label for="agency-search-input">Search Traveler Name</label>
       <input id="agency-search-input" class="agency-search-input"></input>
       <button id="agency-search-button" class="agency-search-button">Search Traveler</button>
       <button id="agency-clear-button" class="agency-clear-button">Clear Search</button>
@@ -175,7 +204,7 @@ function populateAgencyInfo(agencyId, agency) {
 
 function populateTravelerInfo(userID, travelersData) {
   let travelerInfo = travelersData.find(traveler => traveler.id === userID);
-  let traveler = new Traveler(travelerInfo, trips, destinations);
+  traveler = new Traveler(travelerInfo, trips, destinations);
   $(".welcome-user").html(`Welcome, ${traveler.name}`);
   let presentTripsSummary = populateUserTrips(traveler.filterPresentTrips());
   let pastTripsSummary = populateUserTrips(traveler.filterPastTrips());
@@ -232,11 +261,13 @@ function populateUserTrips(tripsData) {
 function displayAllDestination(destinationsData) {
   return destinationsData.reduce((destinationSummary, destination) => {
     return destinationSummary +=
-    `<section class="trip-card">
+    `<section class="search-trip-card">
+      <div>Click Image to Book Trip</div>
       <img data-id="${destination.id}" class="search-destination-image" src="${destination.image}" alt="${destination.alt}">
       <div><span>Location:</span> ${destination.destination}</div>
-      <div><span>Estimated Lodging Per Day:</span> ${destination.estimatedLodgingCostPerDay}</div>
-      <div><span>Estimated Cost Per Person:</span> ${destination.estimatedFlightCostPerPerson}</div>
+      <div class="lodging-per-day${destination.id}"><span>Estimated Lodging Per Day:</span> ${destination.estimatedLodgingCostPerDay}</div>
+      <div class="cost-per-person${destination.id}"><span>Estimated Cost Per Person:</span> ${destination.estimatedFlightCostPerPerson}</div>
+      <div class="trip-request${destination.id}"></div>
     </section>`
   },'')
 }
