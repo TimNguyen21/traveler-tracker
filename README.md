@@ -71,35 +71,27 @@ Go to `http://localhost:8080/` in your browser to view your code running in the 
 ## Test Files Organization
 
 Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
+## Traveler Tracker
 
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `box-test.js`.
+#### Abstract
+Users of the application is able to view and book trips around the world.  There is an admin and user view of the application.  Users are able to view and book trips.  Admin are able to view user's request trips and can accept or deny trips.
 
-## Running Your Tests
+#### Developer
+[Tim Nguyen](https://github.com/TimNguyen21)
 
-Run your test suite using the command:
+#### In Action
+![Using-traveler-tracker]()
 
-```bash
-npm test
-```
+#### Project Next Steps
+In the creation of this project, I had focused mainly on functionality of viewing traveler trips and allowing the users to view and book trips.  I would like to add functionality where an agency can enter new destinations for travelers can choose from.  Also, I would like to improve on the design where it is presentable in mobile and tablets.
 
-The test results will output to the terminal.
+#### Setup
+- Fork and clone down this repo.
+- Once you have cloned the repo, change into the directory.
+- `npm install`
+- `npm start`
+- Go to `http://localhost:8080/` to view and use the application
 
----
 
-## Linting Your Code
 
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
 
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory. 
-
-## Webpack?
-
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
-
-## Deploying to GitHub Pages
-
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
-
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
