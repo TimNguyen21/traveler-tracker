@@ -83,3 +83,22 @@
 .search-error {
   color: red;
 }
+
+//Responsiveness//
+@media screen and (max-width: 955px) {
+  @include agent-summary-height-overflow();
+
+  .agent-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  @include agent-summary-height-overflow();
+
+  .agent-main {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

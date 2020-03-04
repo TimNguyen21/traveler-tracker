@@ -31,19 +31,19 @@ describe("Login", function() {
   });
 
   it("should be an instance of a Login", function() {
-    let login = new Login('traveler1', 'password2020');
+    let login = new Login('traveler1', 'travel2020');
 
     expect(login).to.be.an.instanceof(Login);
   });
 
   it("should return agent userName", function() {
-    let login = new Login('agency', 'password2020');
+    let login = new Login('agency', 'travel2020');
 
     expect(login.checkUserStatus(travelersData)).to.be.equal('agency');
   });
 
   it("should return user's ID", function() {
-    let login = new Login('traveler2', 'password2020');
+    let login = new Login('traveler2', 'travel2020');
 
     expect(login.checkUserStatus(travelersData)).to.be.equal(2);
   })
@@ -55,7 +55,7 @@ describe("Login", function() {
   })
 
   it("should return invalid login with invalid username", function() {
-    let login = new Login('traveler20', 'password2020');
+    let login = new Login('traveler20', 'travel2020');
 
     expect(login.checkUserStatus(travelersData)).to.be.equal('invalid login');
   })

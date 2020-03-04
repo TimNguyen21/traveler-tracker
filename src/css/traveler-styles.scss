@@ -66,7 +66,8 @@
   }
 }
 
-.search-results, .trip-section {
+.search-results,
+.trip-section {
   @include overflow(45em)
 }
 
@@ -124,4 +125,22 @@
 #submit-trip-request {
   @include button-style();
   font-weight: bold;
+}
+
+//Responsiveness//
+@media screen and (max-width: 1090px) {
+  @include traveler-responsive-overflow();
+  .traveler-main{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  @include traveler-responsive-overflow();
+
+  .traveler-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
