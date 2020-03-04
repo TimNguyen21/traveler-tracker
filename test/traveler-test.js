@@ -9,14 +9,15 @@ describe("Traveler", function() {
 
   beforeEach(() => {
     travelerData1 = {
-      "id":1,
-      "name":"Ham Leadbeater",
-      "travelerType":"relaxer"
+      "id": 1,
+      "name": "Ham Leadbeater",
+      "travelerType": "relaxer"
     },
 
-    travelerData2 = {"id":47,
-      "name":"Den Dossettor",
-      "travelerType":"relaxer"
+    travelerData2 = {
+      "id": 47,
+      "name": "Den Dossettor",
+      "travelerType": "relaxer"
     },
 
     traveler = new Traveler(travelerData1, trips, destinations);

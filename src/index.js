@@ -2,28 +2,28 @@ import $ from 'jquery';
 import './css/base.scss';
 import domUpdates from './domUpdates';
 
-var moment = require('moment');
-
 import Login from './Login';
-import Traveler from './Traveler';
 import Agency from './Agency';
 import Trip from './Trip';
 
 // FETCH DATA //
-let travelers = fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/travelers/travelers")
-  .then(response => response.json())
-  .then(data => data.travelers)
-  .catch(error => console.log(error.message));
+let travelers =
+  fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/travelers/travelers")
+    .then(response => response.json())
+    .then(data => data.travelers)
+    .catch(error => console.log(error.message));
 
-let trips = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips')
-  .then(response => response.json())
-  .then(data => data.trips)
-  .catch(error => console.log(error.message));
+let trips =
+  fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips')
+    .then(response => response.json())
+    .then(data => data.trips)
+    .catch(error => console.log(error.message));
 
-let destinations = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/destinations/destinations')
-  .then(response => response.json())
-  .then(data => data.destinations)
-  .catch(error => console.log(error.message));
+let destinations =
+  fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/destinations/destinations')
+    .then(response => response.json())
+    .then(data => data.destinations)
+    .catch(error => console.log(error.message));
 
 Promise.all([travelers, trips, destinations])
   .then(data => {
@@ -54,13 +54,15 @@ $('.login-button').click(function() {
       } else {
         $(".agency-search-results").html("");
         let userSearchResult = agency.searchTravelerSummary($searchName)
-        let upcomingTripsSummary = domUpdates.travelerSearchResults(userSearchResult);
+        let upcomingTripsSummary =
+          domUpdates.travelerSearchResults(userSearchResult);
         $(".agency-search-results").html(upcomingTripsSummary);
 
         $(".search-deny-button").click(function() {
           let trip = new Trip(travelers, trips, destinations);
           trip.removeTripRequest(event.target.dataset.id)
-          $(event.target).closest('.search-summary').html(`RequestID:${event.target.dataset.id} is Cancelled`)
+          $(event.target).closest('.search-summary')
+            .html(`RequestID:${event.target.dataset.id} is Cancelled`)
         });
       }
     })
@@ -72,13 +74,15 @@ $('.login-button').click(function() {
     $(".approve-button").click(function() {
       let trip = new Trip(travelers, trips, destinations);
       trip.approveTripRequest(event.target.dataset.id)
-      $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Approved`)
+      $(event.target).closest('.pending-summary')
+        .html(`RequestID:${event.target.dataset.id} is Approved`)
     });
 
     $(".deny-button").click(function() {
       let trip = new Trip(travelers, trips, destinations);
       trip.removeTripRequest(event.target.dataset.id)
-      $(event.target).closest('.pending-summary').html(`RequestID:${event.target.dataset.id} is Denied`)
+      $(event.target).closest('.pending-summary')
+        .html(`RequestID:${event.target.dataset.id} is Denied`)
     });
 
   } else if (loginResult === "invalid login") {
@@ -95,7 +99,9 @@ $('.login-button').click(function() {
       let trip = new Trip(travelers, trips, destinations)
       $(".search-results").html("");
       let $searchWord = $(".search-destination-input").val();
-      $(".search-results").html(domUpdates.displayAllDestination(trip.searchDestination($searchWord)));
+      $(".search-results")
+        .html(domUpdates.displayAllDestination(
+          trip.searchDestination($searchWord)));
       domUpdates.openForm();
     })
 
