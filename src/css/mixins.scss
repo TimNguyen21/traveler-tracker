@@ -24,3 +24,27 @@
     background-color: $primary-background;
   }
 }
+
+@mixin agent-summary-height-overflow() {
+  .search-user {
+    height: 32em;
+  }
+
+  .agent-summary {
+    width: 100%;
+  }
+
+  #user-present-travel,
+  .pending-request,
+  .agency-search-results {
+    @include overflow(22em)
+    margin-top: 1.5em;
+  }
+}
+
+@mixin traveler-responsive-overflow() {
+  .search-results,
+  .trip-section {
+    @include overflow(23em)
+  }
+}
