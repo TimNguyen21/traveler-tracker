@@ -28,12 +28,25 @@ let domUpdates = {
     return `
       <section class="user-summary">
         <h2>Traveler Summary</h2>
-        <div>${moment().format("YYYY")} Spending</div>
+        <label>${moment().format("YYYY")} Spending</label>
           <div>
           ${formatter.format(traveler.calculateTotalSpentForYear(moment()
             .format("YYYY")))}</div>
-        <div>All-Time Spending</div>
+        <label>All-Time Spending</label>
           <div>${formatter.format(traveler.calculateTotalSpentOverall())}</div>
+      </section>
+      <section class="search-destination-section">
+        <section class="trip-search-area">
+        <label for="search-destination-input">Search Destination</label>
+        <input id="search-destination-input"
+        class="search-destination-input"></input>
+        <button id="search-destination-button"
+        class="search-destination-button">Search</button>
+        <button id="reset-destination-button"
+        class="reset-destination-button">Reset Search</button>
+        </section>
+      <div class="search-results">
+      ${this.displayAllDestination(destinations)}</div>
       </section>
       <section class="user-trip-summary">
         <h2>Past Trips</h2>
@@ -51,17 +64,7 @@ let domUpdates = {
         <h2>Pending Trips</h2>
         <div class="trip-section">${pendingTrips}</div>
       </section>
-      <section class="search-destination-section">
-        <label for="search-destination-input">Search Destination</label>
-        <input id="search-destination-input"
-          class="search-destination-input"></input>
-        <button id="search-destination-button"
-          class="search-destination-button">Search</button>
-        <button id="reset-destination-button"
-          class="reset-destination-button">Reset Search</button>
-        <div class="search-results">
-          ${this.displayAllDestination(destinations)}</div>
-      </section>`
+      `
   },
 
   populateUserTrips(tripsData) {
@@ -88,10 +91,10 @@ let domUpdates = {
         <img data-id="${destination.id}" class="search-destination-image"
           src="${destination.image}" alt="${destination.alt}">
         <div><span>Location:</span> ${destination.destination}</div>
-        <div><span>Estimated Lodging Per Day ($):</span>
-          <div class="lodging-per-day${destination.id}">
-            ${destination.estimatedLodgingCostPerDay}</div></div>
-        <div><span>Estimated Cost Per Person ($):</span>
+        <div><span>Lodging Per Day($):</span>
+          <span class="lodging-per-day${destination.id}">
+            ${destination.estimatedLodgingCostPerDay}</span></div>
+        <div><span>Cost Per Person($):</span>
           <div class="cost-per-person${destination.id}">
             ${destination.estimatedFlightCostPerPerson}</div></div>
         <div class="trip-request${destination.id}"></div>
@@ -196,24 +199,26 @@ let domUpdates = {
           ${formatter.format(agency.calculateAgencyEarningsforYear(
             moment().format("YYYY")))}</div>
       </section>
-      <section>
+      <section class="search-user">
+        <section class="agency-search-box">
+          <label for="agency-search-input">Search Traveler Name</label>
+          <input id="agency-search-input" class="agency-search-input"></input>
+          <button id="agency-search-button" class="agency-search-button">
+          Search Traveler</button>
+          <button id="agency-clear-button" class="agency-clear-button">
+          Clear Search</button>
+        </section>
+        <div class="agency-search-results"></div>
+      </section>
+      <section class="agency-traveler-review">
       <label for="pending-request">Pending Requests:</label>
         <section id="pending-request" class="pending-request">
           ${pendingRequestSummary}
         </section>
       </section>
-      <section>
-      <div>Today's Traveling Travelers</div>
-        <section>${usersCurrentlySummary}</section>
-      </section>
-      <section class="search-user">
-        <label for="agency-search-input">Search Traveler Name</label>
-        <input id="agency-search-input" class="agency-search-input"></input>
-        <button id="agency-search-button" class="agency-search-button">
-          Search Traveler</button>
-        <button id="agency-clear-button" class="agency-clear-button">
-          Clear Search</button>
-        <div class="agency-search-results"></div>
+      <section class="agency-traveler-review">
+      <label for="user-present-travel">Today's Traveling Travelers</label>
+        <section id="user-present-travel">${usersCurrentlySummary}</section>
       </section>
       `
   },

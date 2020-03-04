@@ -8,34 +8,52 @@
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
   background-color: $white-background;
-  padding-bottom: 1em;
+  opacity: $opacity-nine;
   margin: 1em 2em 0em 0em;
+  padding-bottom: 1em;
+  max-height: 12em;
   width: 90%;
-  height: 10em;
+  h2 {
+    text-align: center;
+    font-weight: bold;
+  }
+  label {
+    font-weight: bold;
+  }
+  div {
+    font-style: italic;
+    margin: 0.5em;
+  }
 }
 
 .user-trip-summary {
   @include display-flex-center();
   width: 95%;
   h2 {
+    background-color: $transparent-green-background;
     align-self: flex-start;
+    border-radius: 0.5em;
+    padding: 0.3em;
     font-size: 1em;
-    border-bottom: 1px solid black;
   }
 }
 
-.trip-card, .search-trip-card {
+.trip-card,
+.search-trip-card {
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
   background-color: $white-background;
-  width: 80%;
-  padding: 1em;
+  opacity: $opacity-nine;
   margin-bottom: 1em;
+  padding: 1em;
+  width: 80%;
   div {
     font-style: italic;
     margin: 0.1em;
     span {
+      margin-bottom: 0.5em;
       font-weight: bold;
+      font-size: 0.9em;
     }
   }
 }
@@ -52,17 +70,58 @@
   @include overflow(45em)
 }
 
+.trip-search-area {
+  @include display-flex-center();
+  background-color: $transparent-green-background;
+  margin: 1em 0.5em 1em 0em;
+  border-radius: 0.5em;
+  padding: 0.5em 0em;
+  width: 80%;
+  label {
+    font-weight: bold;
+    font-size: 1em;
+  }
+  input {
+    font-size: 1em;
+    margin: 0.5em;
+    width: 80%;
+  }
+  button {
+    @include button-style();
+  }
+}
+
 .destination-image,
 .search-destination-image {
+  border-radius: 0.5em;
+  margin-bottom: 1em;
   width: 100%;
   height: 50%;
-  margin-bottom: 1em;
+}
+
+.search-destination-image:hover {
+  outline: 3px solid #e9d02f;
 }
 
 .trip-request-form {
   @include display-flex-center();
+  label {
+    font-weight: bold;
+  }
+  input {
+    text-align: center;
+    font-size: 1em;
+    margin: 0.5em;
+    width: 80%;
+  }
 }
 
 .trip-request-label {
   margin-top: 1em;
+}
+
+#calculate-request-cost,
+#submit-trip-request {
+  @include button-style();
+  font-weight: bold;
 }

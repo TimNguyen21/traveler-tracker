@@ -5,37 +5,75 @@
 
 .agent-summary {
   @include display-flex-center();
+  background-color: $white-background;
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
-  padding-bottom: 1em;
+  opacity: $opacity-nine;
   margin: 1em 2em 0em 0em;
-  width: 90%;
+  padding-bottom: 1em;
   height: 10em;
+  width: 90%;
 }
 
 .search-user {
   @include display-flex-center();
+  opacity: $opacity-nine;
+  height: 45em;
+  margin-top: 1em;
+  input {
+    text-align: center;
+    width: 50%;
+    height: 2em;
+    margin: 0.5em;
+  }
   button {
     @include padding-margin-point-two-em();
+    @include button-style();
     width: 50%;
+  }
+  label {
+    font-weight: bold;
+    margin: 0.5em;
   }
 }
 
-.pending-summary, .search-summary {
+.agency-search-box {
+  @include display-flex-center();
+  background-color: $primary-background;
+  border-radius: 0.5em;
+  width: 70%;
+}
+
+.pending-summary,
+.search-summary {
+  background-color: $white-background;
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
-  margin: 1em;
+  opacity: $opacity-nine;
   padding: 1em;
+  margin: 1em;
   div {
     margin: 0.5em;
   }
   button {
     @include padding-margin-point-two-em();
-    width: 100%;
+    @include button-style();
     font-size: 0.9em;
+    width: 100%;
   }
 }
 
+.agency-traveler-review {
+  margin-top: 1.5em;
+  label {
+    background-color: $primary-background;
+    border-radius: 0.5em;
+    font-weight: bold;
+    padding: 0.7em;
+  }
+}
+
+#user-present-travel,
 .pending-request,
 .agency-search-results {
   @include overflow(45em)
