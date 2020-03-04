@@ -6,10 +6,10 @@ class Login {
 
   checkUserStatus(travelersData) {
     if (this.userName.toLowerCase() === 'agency'
-      && this.password === 'password2020') {
+      && this.password === 'travel2020') {
       return this.userName.toLowerCase();
     } else if (this.checkTraveler(travelersData)
-      === true && this.password === 'password2020') {
+      === true && this.password === 'travel2020') {
       return parseInt(this.userName.slice(8));
     } else {
       return "invalid login"
