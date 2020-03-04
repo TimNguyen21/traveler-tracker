@@ -23,7 +23,7 @@ describe("Traveler", function() {
     traveler = new Traveler(travelerData1, trips, destinations);
     traveler2 = new Traveler(travelerData2, trips, destinations);
 
-  })
+  });
 
   it("should be a function", function() {
     expect(Traveler).to.be.a('function');
@@ -50,11 +50,11 @@ describe("Traveler", function() {
         destinationAlt: 'white and brown concrete buildings near sea under white clouds during daytime'
       }]
     )
-  })
+  });
 
   it("should return user's empty trip data based on current year", function() {
     expect(traveler.filterTravelerTripsbyYear("2020")).to.deep.equal([])
-  })
+  });
 
   it("should return user's current year total cost", function() {
     expect(traveler.calculateTotalSpentForYear('2021')).to.equal(4125);
@@ -81,7 +81,7 @@ describe("Traveler", function() {
         destinationAlt: 'white and brown concrete buildings near sea under white clouds during daytime'
       }]
     )
-  })
+  });
 
   it("should return user's pending trips", function() {
     expect(traveler2.filterPendingTrips()).to.deep.equal([
@@ -100,6 +100,35 @@ describe("Traveler", function() {
         destinationAlt: 'city with bridge under night sky'
       }]
     )
-  })
+  });
+
+  it("should return user's approved trips", function() {
+    expect(traveler.approvedTrips()).to.deep.equal([
+      {
+        id: 117,
+        userID: 1,
+        destinationID: 28,
+        travelers: 3,
+        date: '2021/01/09',
+        duration: 15,
+        status: 'approved',
+        suggestedActivities: []
+      }
+    ]);
+  });
+
+  it("should return user's all-time total spent", function() {
+    expect(traveler2.calculateTotalSpentOverall()).to.deep.equal(8877);
+  });
+
+  it("should return total trip cost for a user's trip", function() {
+    let costPerPerson = 200;
+    let totalTravelers = 2;
+    let tripDuration = 9;
+    let lodgingCostPerDay = 80;
+
+    expect(traveler.calculateTotalTripCost(costPerPerson, totalTravelers,
+      tripDuration, lodgingCostPerDay)).to.be.equal(1120);
+  });
 
 })
