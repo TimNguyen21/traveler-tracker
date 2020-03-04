@@ -23,6 +23,7 @@
   - [ ] Traveler.js
   - [ ] Trip.js
   - [ ] index.js
+  - [ ] DOMupdates.js
   - [ ] index.html
 #### test directory
 - [ ] login-test.js
