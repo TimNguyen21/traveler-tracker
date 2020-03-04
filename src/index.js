@@ -51,8 +51,9 @@ $('.login-button').click(function() {
       let $searchName = $(".agency-search-input").val()
       if (agency.searchTravelerSummary($searchName) === undefined) {
         $(".agency-search-results").html("");
-        $(".agency-search-results").html("Not a Traveler in Database");
+        $(".search-error").html("Not a Traveler in Database");
       } else {
+        $(".search-error").html("");
         $(".agency-search-results").html("");
         let userSearchResult = agency.searchTravelerSummary($searchName)
         let upcomingTripsSummary =

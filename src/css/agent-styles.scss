@@ -51,7 +51,7 @@
   box-shadow: $box-shadow-green;
   opacity: $opacity-nine;
   padding: 1em;
-  margin: 1em;
+  margin: 0em 1em 1em 0em;
   div {
     margin: 0.5em;
   }
@@ -77,4 +77,9 @@
 .pending-request,
 .agency-search-results {
   @include overflow(45em)
+  margin-top: 1.5em;
+}
+
+.search-error {
+  color: red;
 }
