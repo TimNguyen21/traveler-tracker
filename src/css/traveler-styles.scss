@@ -8,10 +8,14 @@
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
   background-color: $white-background;
+  opacity: 0.8;
   padding-bottom: 1em;
   margin: 1em 2em 0em 0em;
   width: 90%;
-  height: 10em;
+  max-height: 12em;
+  h2 {
+    text-align: center;
+  }
 }
 
 .user-trip-summary {
@@ -24,10 +28,12 @@
   }
 }
 
-.trip-card, .search-trip-card {
+.trip-card,
+.search-trip-card {
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
   background-color: $white-background;
+  opacity: 0.8;
   width: 80%;
   padding: 1em;
   margin-bottom: 1em;
@@ -36,6 +42,8 @@
     margin: 0.1em;
     span {
       font-weight: bold;
+      font-size: 1em;;
+      margin-bottom: 0.5em;
     }
   }
 }

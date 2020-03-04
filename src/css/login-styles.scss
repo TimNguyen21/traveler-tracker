@@ -5,8 +5,10 @@
 
 .login-section {
   @include display-flex-center();
+  background-color: $white-background;
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
+  opacity: 0.8;
   width: 15em;
   padding: 0.5em;
   background-color: white;
