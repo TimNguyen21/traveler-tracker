@@ -44,4 +44,8 @@ describe("Trip", function() {
     ]);
   });
 
+  it("should return no result based on user search", function() {
+    expect(trip.searchDestination("toga")).to.deep.deep.equal([]);
+  });
+
 })
