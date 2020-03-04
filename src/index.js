@@ -43,6 +43,7 @@ $('.login-button').click(function() {
     let agency = new Agency(loginResult, travelers, trips, destinations);
     $("main").html('');
     $("main").removeClass('login-main').addClass('agent-main');
+    $('body').css('background', 'url("https://www.publicdomainpictures.net/pictures/190000/velka/travel-background-1469437944Rbi.jpg")');
     $("main").html(domUpdates.populateAgencyInfo(loginResult, agency));
 
     //Buttons Listeners//
@@ -92,6 +93,8 @@ $('.login-button').click(function() {
     //Traveler Page Display//
     $("main").html('')
     $("main").removeClass('login-main').addClass('traveler-main');
+    $(".welcome-user").css("padding-bottom", "0.5em")
+    $('body').css('background-image', 'url("https://www.travelloverepeat.com/wp-content/uploads/2018/10/Background-Image_Vietnam-10.jpg")');
     $("main").html(domUpdates.populateTravelerInfo(loginResult, travelers));
 
     //Buttons Listeners//

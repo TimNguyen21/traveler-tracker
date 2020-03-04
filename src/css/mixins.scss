@@ -13,3 +13,14 @@
   height: $height;
   overflow: auto;
 }
+
+@mixin button-style() {
+  border-radius: 0.5em;
+  font-weight: 500;
+  width: 80%;
+  margin: 0.5em;
+  padding: 0.5em;
+  &:hover {
+    background-color: $primary-background;
+  }
+}

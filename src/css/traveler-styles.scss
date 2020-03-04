@@ -9,10 +9,10 @@
   box-shadow: $box-shadow-green;
   background-color: $white-background;
   opacity: $opacity-nine;
-  padding-bottom: 1em;
   margin: 1em 2em 0em 0em;
-  width: 90%;
+  padding-bottom: 1em;
   max-height: 12em;
+  width: 90%;
   h2 {
     text-align: center;
     font-weight: bold;
@@ -32,9 +32,9 @@
   h2 {
     background-color: $transparent-green-background;
     align-self: flex-start;
-    font-size: 1em;
-    padding: 0.3em;
     border-radius: 0.5em;
+    padding: 0.3em;
+    font-size: 1em;
   }
 }
 
@@ -44,16 +44,16 @@
   box-shadow: $box-shadow-green;
   background-color: $white-background;
   opacity: $opacity-nine;
-  width: 80%;
-  padding: 1em;
   margin-bottom: 1em;
+  padding: 1em;
+  width: 80%;
   div {
     font-style: italic;
     margin: 0.1em;
     span {
+      margin-bottom: 0.5em;
       font-weight: bold;
       font-size: 0.9em;
-      margin-bottom: 0.5em;
     }
   }
 }
@@ -73,38 +73,30 @@
 .trip-search-area {
   @include display-flex-center();
   background-color: $transparent-green-background;
-  width: 80%;
   margin: 1em 0.5em 1em 0em;
-  padding: 0.5em 0em;
   border-radius: 0.5em;
+  padding: 0.5em 0em;
+  width: 80%;
   label {
-    font-size: 1em;
     font-weight: bold;
+    font-size: 1em;
   }
   input {
-    width: 80%;
     font-size: 1em;
     margin: 0.5em;
+    width: 80%;
   }
   button {
     @include button-style();
-    // border-radius: 0.5em;
-    // font-weight: 500;
-    // width: 80%;
-    // margin: 0.5em;
-    // padding: 0.5em;
-    // &:hover {
-    //   background-color: $primary-background;
-    // }
   }
 }
 
 .destination-image,
 .search-destination-image {
+  border-radius: 0.5em;
+  margin-bottom: 1em;
   width: 100%;
   height: 50%;
-  margin-bottom: 1em;
-  border-radius: 0.5em;
 }
 
 .search-destination-image:hover {
@@ -117,10 +109,10 @@
     font-weight: bold;
   }
   input {
-    margin: 0.5em;
-    width: 80%;
     text-align: center;
     font-size: 1em;
+    margin: 0.5em;
+    width: 80%;
   }
 }
 
@@ -131,12 +123,5 @@
 #calculate-request-cost,
 #submit-trip-request {
   @include button-style();
-  // border-radius: 0.5em;
-  // font-weight: 500;
-  // width: 80%;
-  // margin: 0.5em;
-  // padding: 0.5em;
-  // &:hover {
-  //   background-color: $primary-background;
-  // }
+  font-weight: bold;
 }

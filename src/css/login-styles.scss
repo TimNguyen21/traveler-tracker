@@ -1,5 +1,6 @@
 .login-main {
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 
@@ -9,22 +10,24 @@
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
   opacity: $opacity-nine;
+  background-color: $white-background;
   border-radius: 0.5em;
-  width: 15em;
+  margin-top: 10%;
   padding: 0.5em;
-  background-color: white;
+  width: 15em;
   label, button {
     font-size: 1.1em;
   }
   input {
+    text-align: center;
     width: 15em;
     height: 2em;
     margin: 1em;
   }
   button {
     @include padding-margin-point-two-em();
-    width: 50%;
     border-radius: 0.5em;
+    width: 50%;
     &:hover {
       background-color: $primary-background;
     }
