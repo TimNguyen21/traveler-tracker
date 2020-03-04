@@ -207,6 +207,7 @@ let domUpdates = {
           Search Traveler</button>
           <button id="agency-clear-button" class="agency-clear-button">
           Clear Search</button>
+          <div class="search-error"></div>
         </section>
         <div class="agency-search-results"></div>
       </section>
