@@ -7,8 +7,11 @@ Users of the application is able to view and book trips around the world.  There
 [Tim Nguyen](https://github.com/TimNguyen21)
 
 #### In Action
+
+##### Traveler Page
 ![Traveler Page](https://media.giphy.com/media/KB83uGRzNu0uYVB0l7/giphy.gif)
 
+##### Agency Page
 ![Agency Page](https://media.giphy.com/media/KFP0We9M5LJrbMuDqW/giphy.gif)
 
 #### Project Next Steps
