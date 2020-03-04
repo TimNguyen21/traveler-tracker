@@ -83,3 +83,50 @@
 .search-error {
   color: red;
 }
+
+@media screen and (max-width: 955px) {
+
+  .agent-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .agent-summary {
+    width: 100%;
+  }
+
+  #user-present-travel,
+  .pending-request,
+  .agency-search-results {
+    @include overflow(22em)
+    margin-top: 1.5em;
+  }
+
+  .search-user {
+    height: 32em;
+  }
+
+}
+
+@media screen and (max-width: 720px) {
+  .agent-main {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .agent-summary {
+    width: 100%;
+  }
+
+  #user-present-travel,
+  .pending-request,
+  .agency-search-results {
+    @include overflow(22em)
+    margin-top: 1.5em;
+  }
+
+  .search-user {
+    height: 32em;
+  }
+
+}
