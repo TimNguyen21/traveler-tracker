@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TimNguyen21/traveler-tracker",
+    "url": "git+https://github.com/TimNguyen21/traveler-tracker.git",
     "homepage": "https://timnguyen21.github.io/traveler-tracker/"
   },
   "author": "Turing School of Software and Design",
