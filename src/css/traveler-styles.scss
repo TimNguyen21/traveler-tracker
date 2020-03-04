@@ -8,13 +8,21 @@
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
   background-color: $white-background;
-  opacity: 0.8;
+  opacity: $opacity-nine;
   padding-bottom: 1em;
   margin: 1em 2em 0em 0em;
   width: 90%;
   max-height: 12em;
   h2 {
     text-align: center;
+    font-weight: bold;
+  }
+  label {
+    font-weight: bold;
+  }
+  div {
+    font-style: italic;
+    margin: 0.5em;
   }
 }
 
@@ -22,9 +30,11 @@
   @include display-flex-center();
   width: 95%;
   h2 {
+    background-color: $transparent-green-background;
     align-self: flex-start;
     font-size: 1em;
-    border-bottom: 1px solid black;
+    padding: 0.3em;
+    border-radius: 0.5em;
   }
 }
 
@@ -33,7 +43,7 @@
   border: $border-solid-green;
   box-shadow: $box-shadow-green;
   background-color: $white-background;
-  opacity: 0.8;
+  opacity: $opacity-nine;
   width: 80%;
   padding: 1em;
   margin-bottom: 1em;
@@ -42,7 +52,7 @@
     margin: 0.1em;
     span {
       font-weight: bold;
-      font-size: 1em;;
+      font-size: 0.9em;
       margin-bottom: 0.5em;
     }
   }
@@ -60,17 +70,73 @@
   @include overflow(45em)
 }
 
+.trip-search-area {
+  @include display-flex-center();
+  background-color: $transparent-green-background;
+  width: 80%;
+  margin: 1em 0.5em 1em 0em;
+  padding: 0.5em 0em;
+  border-radius: 0.5em;
+  label {
+    font-size: 1em;
+    font-weight: bold;
+  }
+  input {
+    width: 80%;
+    font-size: 1em;
+    margin: 0.5em;
+  }
+  button {
+    @include button-style();
+    // border-radius: 0.5em;
+    // font-weight: 500;
+    // width: 80%;
+    // margin: 0.5em;
+    // padding: 0.5em;
+    // &:hover {
+    //   background-color: $primary-background;
+    // }
+  }
+}
+
 .destination-image,
 .search-destination-image {
   width: 100%;
   height: 50%;
   margin-bottom: 1em;
+  border-radius: 0.5em;
+}
+
+.search-destination-image:hover {
+  outline: 3px solid #e9d02f;
 }
 
 .trip-request-form {
   @include display-flex-center();
+  label {
+    font-weight: bold;
+  }
+  input {
+    margin: 0.5em;
+    width: 80%;
+    text-align: center;
+    font-size: 1em;
+  }
 }
 
 .trip-request-label {
   margin-top: 1em;
+}
+
+#calculate-request-cost,
+#submit-trip-request {
+  @include button-style();
+  // border-radius: 0.5em;
+  // font-weight: 500;
+  // width: 80%;
+  // margin: 0.5em;
+  // padding: 0.5em;
+  // &:hover {
+  //   background-color: $primary-background;
+  // }
 }
