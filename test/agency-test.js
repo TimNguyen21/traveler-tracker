@@ -67,4 +67,14 @@ describe("Agency", function() {
     });
   });
 
+  it("should return total trip cost for a user's trip", function() {
+    let costPerPerson = 400;
+    let totalTravelers = 4;
+    let tripDuration = 12;
+    let lodgingCostPerDay = 120;
+
+    expect(agency.calculateTotalTripCost(costPerPerson, totalTravelers,
+      tripDuration, lodgingCostPerDay)).to.be.equal(3040);
+  });
+
 })

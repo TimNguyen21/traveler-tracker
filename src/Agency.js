@@ -11,7 +11,7 @@ class Agency {
   searchTravelerSummary(travelerName) {
     let userInfo = this.travelData
       .find(person => person.name.toLowerCase()
-      .includes(travelerName.toLowerCase()));
+        .includes(travelerName.toLowerCase()));
     if (userInfo === undefined) {
       return undefined
     }
