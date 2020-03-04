@@ -7,7 +7,9 @@ Users of the application is able to view and book trips around the world.  There
 [Tim Nguyen](https://github.com/TimNguyen21)
 
 #### In Action
-![Using-traveler-tracker]()
+![Traveler Page](https://media.giphy.com/media/KB83uGRzNu0uYVB0l7/giphy.gif)
+
+![Agency Page](https://media.giphy.com/media/KFP0We9M5LJrbMuDqW/giphy.gif)
 
 #### Project Next Steps
 In the creation of this project, I had focused mainly on functionality of viewing traveler trips and allowing the users to view and book trips.  I would like to add functionality where an agency can enter new destinations for travelers can choose from.  Also, I would like to improve on the design where it is presentable in mobile and tablets.
