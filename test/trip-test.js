@@ -10,13 +10,13 @@ describe("Trip", function() {
   beforeEach(() => {
     travelerData = [
       {
-      "id":1,
-      "name":"Ham Leadbeater",
-      "travelerType":"relaxer"
+        "id": 1,
+        "name": "Ham Leadbeater",
+        "travelerType": "relaxer"
       },
-      {"id":47,
-        "name":"Den Dossettor",
-        "travelerType":"relaxer"
+      {"id": 47,
+        "name": "Den Dossettor",
+        "travelerType": "relaxer"
       }
     ]
 

@@ -13,12 +13,14 @@ class Trip {
   removeTripRequest(id) {
     let removeRequest = {"id": parseInt(id)}
 
-    fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(removeRequest),
+    fetch(
+      "https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips",
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(removeRequest),
       })
       .then(response => response.json())
       .then(data => {
@@ -30,12 +32,14 @@ class Trip {
   approveTripRequest(id) {
     let approveRequest = {"id": parseInt(id), "status": "approved"}
 
-    fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/updateTrip", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(approveRequest),
+    fetch(
+      "https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/updateTrip",
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(approveRequest),
       })
       .then(response => response.json())
       .then(data => {
@@ -55,20 +59,24 @@ class Trip {
       "suggestedActivities": []
     }
 
-    console.log(tripRequest)
-
-    fetch("https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips", {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify(tripRequest),
-     })
+    fetch(
+      "https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips",
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tripRequest),
+      })
       .then(response => response.json())
       .then(data => {
         console.log(data);
       })
       .catch(error => console.log(error.message))
+  }
+
+  calculateTripTotal(lodgingPerDay, costPerPerson, travlers, duration) {
+    return ((lodgingPerDay * duration) + (costPerPerson * travlers)) * 1.1
   }
 
 }
